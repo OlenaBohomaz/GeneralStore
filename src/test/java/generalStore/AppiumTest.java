@@ -41,6 +41,7 @@ public class AppiumTest {
         WebElement selectCountryText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Select the country where you want to shop\"]"));
         WebElement youNameText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Your Name\"]"));
         WebElement genderText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Gender\"]"));
+        WebElement countryList = driver.findElement(By.id("android:id/text1"));
 
 
         //          driver.findElement(By.id("com.androidsample.generalstore:id/toolbar_title"));
@@ -51,6 +52,7 @@ public class AppiumTest {
         verifyTextProperties(selectCountryText);
         verifyYourNameProperties(youNameText);
         verifyGenderProperties(genderText);
+        verifyCountryProperties(countryList);
 
     }
 
@@ -351,6 +353,75 @@ public class AppiumTest {
         } else {
             System.out.println("Text 'Gender' is not correct!!!");
             System.out.println("Element text: " + text2.getText());
+        }
+
+    }
+    private static void verifyCountryProperties(WebElement country){
+        // checking is this element clickable
+       String countryTextByDefault ="Afghanistan";
+       String actualCountryText = country.getText();
+
+        if(actualCountryText.equals(countryTextByDefault)) {
+            System.out.println("Country text by default is correct and equal 'Afghanistan' ");
+        } else {
+            System.out.println(("Country text by default is not correct!!! and equal " + country.getText()));
+        }
+        // check is element displayed on the tab
+        if (country.isDisplayed()) {
+            System.out.println("Country 'Afghanistan'  is present on page");
+        } else {
+            System.out.println("Country 'Afghanistan'  is absent!!! on page");
+        }
+
+        // check if Country is enabled
+        if (country.isEnabled()) {
+            System.out.println("Country 'Afghanistan'  is enable");
+        } else {
+            System.out.println("TCountry 'Afghanistan'  is not enable");
+        }
+
+        // Check if the Country 'Afghanistan' is clickable
+        String clickableAttribute = country.getAttribute("clickable");
+        if ("false".equals(clickableAttribute)) {
+            System.out.println("Country 'Afghanistan' is not clickable.");
+        } else {
+            System.out.println("Country 'Afghanistan' is clickable!!!");
+        }
+
+        // check is Country 'Afghanistan' is focusable
+        String focusableAttribute = country.getAttribute("focusable");
+        if ("false".equals(focusableAttribute)) {
+            System.out.println("Country 'Afghanistan' is not focusable");
+        } else {
+            System.out.println("Country 'Afghanistan' is focusable!!!");
+        }
+        // check is the Country 'Afghanistan' is focused
+        String focusedAttribute = country.getAttribute("focused");
+        if ("false".equals(focusedAttribute)) {
+            System.out.println("Country 'Afghanistan' is not focused");
+        } else {
+            System.out.println("Country 'Afghanistan' is focused!!!");
+        }
+        // check is the Country 'Afghanistan' is scrollable
+        String scrollableAttribute = country.getAttribute("scrollable");
+        if ("false".equals(scrollableAttribute)) {
+            System.out.println("Country 'Afghanistan' is not scrollable");
+        } else {
+            System.out.println("Country 'Afghanistan'' is scrollable!!!");
+        }
+        // check is the Country 'Afghanistan' is selected
+        String selectedAttribute = country.getAttribute("selected");
+        if ("false".equals(selectedAttribute)) {
+            System.out.println("Country 'Afghanistan' is not selected");
+        } else {
+            System.out.println("Country 'Afghanistan' is selected!!!");
+        }
+        //check if the Country 'Afghanistan' is checked
+        String checkedAttribute = country.getAttribute("checked");
+        if ("false".equals(checkedAttribute)) {
+            System.out.println("Country 'Afghanistan' is not checked");
+        } else {
+            System.out.println("Country 'Afghanistan' is checked!!!");
         }
 
     }
