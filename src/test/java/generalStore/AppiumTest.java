@@ -37,12 +37,16 @@ public class AppiumTest {
         } catch (Exception e) {
             System.out.println("element is not present");
         }
+        //finding all elements on the tab
+
         WebElement toolBarGeneralStore = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("com.androidsample.generalstore:id/toolbar_title")));
         WebElement selectCountryText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Select the country where you want to shop\"]"));
         WebElement youNameText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Your Name\"]"));
         WebElement genderText = driver.findElement(By.xpath("//android.widget.TextView[@text=\"Gender\"]"));
         WebElement countryList = driver.findElement(By.id("android:id/text1"));
-
+        WebElement picture = driver.findElement(By.xpath("//android.widget.ImageView"));
+        WebElement spinnerCountry = driver.findElement(By.xpath("//android.widget.Spinner[@resource-id=\"com.androidsample.generalstore:id/spinnerCountry\"]"));
+        WebElement maleRadio = driver.findElement(By.id("com.androidsample.generalstore:id/radioMale"));
 
         //          driver.findElement(By.id("com.androidsample.generalstore:id/toolbar_title"));
         System.out.println("Checking property of the element find by ID");
@@ -53,7 +57,9 @@ public class AppiumTest {
         verifyYourNameProperties(youNameText);
         verifyGenderProperties(genderText);
         verifyCountryProperties(countryList);
-
+        verifyPictureProperties(picture);
+        verifySpinnerCountryProperties(spinnerCountry);
+        verifySMaleRadioProperties(maleRadio);
     }
 
     private static void verifyElementProperties(WebElement element) {
@@ -70,7 +76,6 @@ public class AppiumTest {
         } else {
             System.out.println("Title 'General store'  is not enable");
         }
-
         // Check if the Title is clickable
         String clickableAttribute = element.getAttribute("clickable");
         if ("false".equals(clickableAttribute)) {
@@ -139,14 +144,12 @@ public class AppiumTest {
         } else {
             System.out.println("Text 'Select the country where you want to shop' is not correct!!!");
         }
-
         // check if Text is enabled
         if (element.isEnabled()) {
             System.out.println("Text 'Select the country where you want to shop'  is enable");
         } else {
             System.out.println("Text 'Select the country where you want to shop'  is not enable");
         }
-
         // Check if the Text is clickable
         String clickableAttribute = element.getAttribute("clickable");
         if ("false".equals(clickableAttribute)) {
@@ -216,14 +219,12 @@ public class AppiumTest {
         } else {
             System.out.println("Text 'Your Name' is not correct!!!");
         }
-
         // check if Text1 is enabled
         if (element.isEnabled()) {
             System.out.println("Text 'Your Name'  is enable");
         } else {
             System.out.println("Text 'Your Name'  is not enable");
         }
-
         // Check if the Text1 is clickable
         String clickableAttribute = element.getAttribute("clickable");
         if ("false".equals(clickableAttribute)) {
@@ -276,9 +277,7 @@ public class AppiumTest {
             System.out.println("Text is not correct!!!");
             System.out.println("Element text: " + element.getText());
         }
-
     }
-
 
     private static void  verifyGenderProperties(WebElement text2) {
         // check if Text2 is displayed
@@ -294,14 +293,12 @@ public class AppiumTest {
         } else {
             System.out.println("Text 'Gender' is not correct!!!");
         }
-
         // check if Text2 is enabled
         if (text2.isEnabled()) {
             System.out.println("Text 'Gender'  is enable");
         } else {
             System.out.println("Text 'Gender'  is not enable");
         }
-
         // Check if the Text2 is clickable
         String clickableAttribute = text2.getAttribute("clickable");
         if ("false".equals(clickableAttribute)) {
@@ -354,10 +351,9 @@ public class AppiumTest {
             System.out.println("Text 'Gender' is not correct!!!");
             System.out.println("Element text: " + text2.getText());
         }
-
     }
     private static void verifyCountryProperties(WebElement country){
-        // checking is this element clickable
+        // checking if this element has correct text
        String countryTextByDefault ="Afghanistan";
        String actualCountryText = country.getText();
 
@@ -372,14 +368,12 @@ public class AppiumTest {
         } else {
             System.out.println("Country 'Afghanistan'  is absent!!! on page");
         }
-
         // check if Country is enabled
         if (country.isEnabled()) {
             System.out.println("Country 'Afghanistan'  is enable");
         } else {
             System.out.println("TCountry 'Afghanistan'  is not enable");
         }
-
         // Check if the Country 'Afghanistan' is clickable
         String clickableAttribute = country.getAttribute("clickable");
         if ("false".equals(clickableAttribute)) {
@@ -387,29 +381,28 @@ public class AppiumTest {
         } else {
             System.out.println("Country 'Afghanistan' is clickable!!!");
         }
-
-        // check is Country 'Afghanistan' is focusable
+        // check if Country 'Afghanistan' is focusable
         String focusableAttribute = country.getAttribute("focusable");
         if ("false".equals(focusableAttribute)) {
             System.out.println("Country 'Afghanistan' is not focusable");
         } else {
             System.out.println("Country 'Afghanistan' is focusable!!!");
         }
-        // check is the Country 'Afghanistan' is focused
+        // check if the Country 'Afghanistan' is focused
         String focusedAttribute = country.getAttribute("focused");
         if ("false".equals(focusedAttribute)) {
             System.out.println("Country 'Afghanistan' is not focused");
         } else {
             System.out.println("Country 'Afghanistan' is focused!!!");
         }
-        // check is the Country 'Afghanistan' is scrollable
+        // check if the Country 'Afghanistan' is scrollable
         String scrollableAttribute = country.getAttribute("scrollable");
         if ("false".equals(scrollableAttribute)) {
             System.out.println("Country 'Afghanistan' is not scrollable");
         } else {
             System.out.println("Country 'Afghanistan'' is scrollable!!!");
         }
-        // check is the Country 'Afghanistan' is selected
+        // check if the Country 'Afghanistan' is selected
         String selectedAttribute = country.getAttribute("selected");
         if ("false".equals(selectedAttribute)) {
             System.out.println("Country 'Afghanistan' is not selected");
@@ -423,7 +416,189 @@ public class AppiumTest {
         } else {
             System.out.println("Country 'Afghanistan' is checked!!!");
         }
-
     }
+    private static void verifyPictureProperties(WebElement picture){
+            // check is element displayed on the tab
+        if (picture.isDisplayed()) {
+            System.out.println("Picture  is present on page");
+        } else {
+            System.out.println("Picture is absent!!! on page");
+        }
+        // check if Picture is enabled
+        if (picture.isEnabled()) {
+            System.out.println("Picture  is enable");
+        } else {
+            System.out.println("Picture is not enable");
+        }
+        // Check if the Picture is clickable
+        String clickableAttribute = picture.getAttribute("clickable");
+        if ("false".equals(clickableAttribute)) {
+            System.out.println("Country 'Afghanistan' is not clickable.");
+        } else {
+            System.out.println("Country 'Afghanistan' is clickable!!!");
+        }
+        // check if picture is focusable
+        String focusableAttribute = picture.getAttribute("focusable");
+        if ("false".equals(focusableAttribute)) {
+            System.out.println("picture is not focusable");
+        } else {
+            System.out.println("picture is focusable!!!");
+        }
+        // check if the picture' is focused
+        String focusedAttribute = picture.getAttribute("focused");
+        if ("false".equals(focusedAttribute)) {
+            System.out.println("picture is not focused");
+        } else {
+            System.out.println("picture is focused!!!");
+        }
+        // check if the picture is scrollable
+        String scrollableAttribute = picture.getAttribute("scrollable");
+        if ("false".equals(scrollableAttribute)) {
+            System.out.println("picture is not scrollable");
+        } else {
+            System.out.println("picture is scrollable!!!");
+        }
+        // check if the picture is selected
+        String selectedAttribute = picture.getAttribute("selected");
+        if ("false".equals(selectedAttribute)) {
+            System.out.println("picture is not selected");
+        } else {
+            System.out.println("picture is selected!!!");
+        }
+        //check if the picture is checked
+        String checkedAttribute = picture.getAttribute("checked");
+        if ("false".equals(checkedAttribute)) {
+            System.out.println("picture is not checked");
+        } else {
+            System.out.println("picture is checked!!!");
+        }
+    }
+    private static void verifySpinnerCountryProperties(WebElement arrow){
+        // check is element displayed on the tab
+        if (arrow.isDisplayed()) {
+            System.out.println("arrow  is present on page");
+        } else {
+            System.out.println("arrow is absent!!! on page");
+        }
+        // check if arrow is enabled
+        if (arrow.isEnabled()) {
+            System.out.println("arrow  is enable");
+        } else {
+            System.out.println("arrow is not enable");
+        }
+        // Check if the arrowis clickable
+        String clickableAttribute = arrow.getAttribute("clickable");
+        if ("true".equals(clickableAttribute)) {
+            System.out.println("arrow is clickable.");
+        } else {
+            System.out.println("arrow is not clickable!!!");
+        }
+        // check if arrow is focusable
+        String focusableAttribute = arrow.getAttribute("focusable");
+        if ("true".equals(focusableAttribute)) {
+            System.out.println("arrow is focusable");
+        } else {
+            System.out.println("arrow is not focusable!!!");
+        }
+        // check if the arrow is focused
+        String focusedAttribute = arrow.getAttribute("focused");
+        if ("false".equals(focusedAttribute)) {
+            System.out.println("arrow is not focused");
+        } else {
+            System.out.println("arrow is focused!!!");
+        }
+        // check if the arrow is scrollable
+        String scrollableAttribute = arrow.getAttribute("scrollable");
+        if ("true".equals(scrollableAttribute)) {
+            System.out.println("arrow is scrollable");
+        } else {
+            System.out.println("arrow is not scrollable!!!");
+        }
+        // check if the arrow is selected
+        String selectedAttribute = arrow.getAttribute("selected");
+        if ("false".equals(selectedAttribute)) {
+            System.out.println("arrow is not not selected");
+        } else {
+            System.out.println("arrow is selected!!!");
+        }
+        //check if the arrow is checked
+        String checkedAttribute = arrow.getAttribute("checked");
+        if ("false".equals(checkedAttribute)) {
+            System.out.println("arrow picture is not checked");
+        } else {
+            System.out.println("arrow is  checked");
+    }
+    }
+    private static void verifySMaleRadioProperties(WebElement male){
+        // checking if this element has correct text
+        String expectedMaleRadioText ="Male";
+        String actualMaleRadioText = male.getText();
 
+        if(actualMaleRadioText.equals(expectedMaleRadioText)) {
+            System.out.println(" male text  is correct and equal 'Male' ");
+        } else {
+            System.out.println(("male text is not correct!!! and equal " + male.getText()));
+        }
+        // check is element displayed on the tab
+        if (male.isDisplayed()) {
+            System.out.println("male  is present on page");
+        } else {
+            System.out.println("male is absent!!! on page");
+        }
+        // check if male is enabled
+        if (male.isEnabled()) {
+            System.out.println("male  is enable");
+        } else {
+            System.out.println("male is not enable");
+        }
+        // Check if the male is clickable
+        String clickableAttribute = male.getAttribute("clickable");
+        if ("true".equals(clickableAttribute)) {
+            System.out.println("male is clickable.");
+        } else {
+            System.out.println("male is not clickable!!!");
+        }
+        // check if male is focusable
+        String focusableAttribute = male.getAttribute("focusable");
+        if ("true".equals(focusableAttribute)) {
+            System.out.println("male is focusable");
+        } else {
+            System.out.println("male is not focusable!!!");
+        }
+        // check if the male is focused
+        String focusedAttribute = male.getAttribute("focused");
+        if ("false".equals(focusedAttribute)) {
+            System.out.println("male is not focused");
+        } else {
+            System.out.println("male is focused!!!");
+        }
+        // check if the male is scrollable
+        String scrollableAttribute = male.getAttribute("scrollable");
+        if ("false".equals(scrollableAttribute)) {
+            System.out.println("male is not scrollable");
+        } else {
+            System.out.println("male is scrollable!!!");
+        }
+        // check if the male is selected
+        String selectedAttribute =male.getAttribute("selected");
+        if ("false".equals(selectedAttribute)) {
+            System.out.println("male is not not selected");
+        } else {
+            System.out.println("male is selected!!!");
+        }
+        //check if the male is checked
+        String checkedAttribute = male.getAttribute("checked");
+        if ("true".equals(checkedAttribute)) {
+            System.out.println("male picture is checked");
+        } else {
+            System.out.println("male is  not checked");
+        }
+        //check if the male is checkable
+        String checkableAttribute = male.getAttribute("checkable");
+        if ("true".equals(checkableAttribute)) {
+            System.out.println("male picture is checkable");
+        } else {
+            System.out.println("male is  not checkable");
+        }
+    }
 }
