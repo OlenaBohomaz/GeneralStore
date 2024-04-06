@@ -1,9 +1,10 @@
 package generalStore;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,13 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.URL;
 import java.time.Duration;
 
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.interactions.Actions;
-
-public class AppiumTest {
+public class OnboardingTest {
     public static void main(String[] args) throws Exception {
         // setup desired capabilities
 
@@ -57,7 +52,7 @@ public class AppiumTest {
         WebElement spinnerCountry = driver.findElement(By.xpath("//android.widget.Spinner[@resource-id=\"com.androidsample.generalstore:id/spinnerCountry\"]"));
         WebElement maleRadio = driver.findElement(By.id("com.androidsample.generalstore:id/radioMale"));
         WebElement femaleRadio = driver.findElement(By.id("com.androidsample.generalstore:id/radioFemale"));
-        WebElement input = driver.findElement(By.id("com.androidsample.generalstore:id/nameField"));
+        WebElement inputName = driver.findElement(By.id("com.androidsample.generalstore:id/nameField"));
         WebElement button = driver.findElement(By.id("com.androidsample.generalstore:id/btnLetsShop"));
         WebElement albania = driver.findElement(By.xpath("(//android.widget.TextView[@resource-id='android:id/text1'])[1]"));
      //   WebElement country = driver.findElement(By.id("android:id/text1[1]"));
@@ -75,11 +70,14 @@ public class AppiumTest {
         verifySpinnerCountryProperties(spinnerCountry);
         verifyMaleRadioProperties(maleRadio);
         verifyFemaleRadioProperties(femaleRadio);
-        verifyInputProperties(input);
+        verifyInputProperties(inputName);
         driver.hideKeyboard();
         verifyIButtonProperties(button);
+
+        scrollDown(driver);
 //        verifyAlbaniaProperties(albania);
 //        verifyCountrySelected(country);
+
 
     }
 
@@ -935,4 +933,34 @@ public class AppiumTest {
 //        }
 //    }
 
+
+    public static void scrollDown(AndroidDriver driver) {
+//        Dimension size = driver.manage().window().getSize();
+//        int starty = (int) (size.height * 0.50);
+//        int endy = (int) (size.height * 0.20);
+//        int startx = size.width / 2;
+//
+//        TouchAction action = new TouchAction(driver);
+//
+//        action.press(PointOption.point(startx, starty))
+//                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+//                .moveTo(PointOption.point(startx, endy))
+//                .release()
+//                .perform();
+
+        Dimension size = driver.manage().window().getSize();
+        int startX = size.width / 2;
+        int startY = (int) (size.height * 0.80);
+        int endY = (int) (size.height * 0.20);
+
+
+        new TouchAction(driver)
+                .press(PointOption.point(startX, startY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(startX, endY))
+                .release()
+                .perform();
+
+
+    }
 }
